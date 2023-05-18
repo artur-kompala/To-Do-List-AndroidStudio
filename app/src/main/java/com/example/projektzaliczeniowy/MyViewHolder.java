@@ -18,7 +18,6 @@ public class MyViewHolder  extends RecyclerView.ViewHolder {
         super(itemView);
         dateAddedView = itemView.findViewById(R.id.dateAdded);
         dateEndView = itemView.findViewById(R.id.dateEnd);
-        taskView = itemView.findViewById(R.id.task);
         priorityView = itemView.findViewById(R.id.priority);
         statusView = itemView.findViewById(R.id.status);
 
