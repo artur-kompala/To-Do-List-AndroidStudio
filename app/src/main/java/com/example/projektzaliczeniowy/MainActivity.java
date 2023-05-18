@@ -19,9 +19,15 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
         List<Item> items = new ArrayList<Item>();
-        items.add(new  Item("26/12/2001","12/12/2005","Kupić mleko","High","Koniec"));
+        items.add(new  Item("26/12/2001","12/12/2005","Kupić mleko","High",true));
+        items.add(new  Item("26/12/2001","12/12/2005","Kupić mleko","High",false));
+        items.add(new  Item("26/12/2001","12/12/2005","Kupić mleko","High",true));
+        items.add(new  Item("26/12/2001","12/12/2005","Kupić mleko","High",false));
+        items.add(new  Item("26/12/2001","12/12/2005","Kupić mleko","High",true));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new MyAdapter(getApplicationContext(),items));
+
+
     }
 }

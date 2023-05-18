@@ -5,9 +5,9 @@ public class Item {
     String dateEnd;
     String task;
     String priority;
-    String status;
+    Boolean status;
 
-    public Item(String dateAdded, String dateEnd, String task, String priority, String status) {
+    public Item(String dateAdded, String dateEnd, String task, String priority, Boolean status) {
         this.dateAdded = dateAdded;
         this.dateEnd = dateEnd;
         this.task = task;
@@ -47,11 +47,11 @@ public class Item {
         this.priority = priority;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }
