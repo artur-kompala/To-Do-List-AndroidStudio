@@ -4,19 +4,52 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        TextView yearView = findViewById(R.id.yearView);
+        TextView dateView = findViewById(R.id.dateView);
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        Button button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity2();
+            }
+        });
+
+
+
+
+        SimpleDateFormat formater = new SimpleDateFormat(" MMM dd E");
+        Calendar c = Calendar.getInstance();
+        String year = String.valueOf(c.get(Calendar.YEAR));
+        String date = formater.format(new Date());
+
+        yearView.setText(year);
+        dateView.setText(date);
+
+
 
         List<Item> items = new ArrayList<Item>();
         items.add(new  Item("26/12/2001","12/12/2005","Kupić mleko","High",true));
@@ -36,4 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    public void openActivity2(){
+        Intent intent = new Intent(this, MainActivity2.class);
+        startActivity(intent);
+    };
 }

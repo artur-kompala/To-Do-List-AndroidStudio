@@ -18,9 +18,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     Context context;
     List<Item> items;
 
+
     public MyAdapter(Context context, List<Item> items) {
         this.context = context;
         this.items = items;
+    }
+    public void check(MyViewHolder holder){
+        if(holder.statusView.isChecked()){
+            holder.statusView.setPaintFlags(holder.statusView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }else{
+            holder.statusView.setPaintFlags(holder.statusView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
     }
 
 
@@ -34,30 +43,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.statusView.setText(items.get(position).getTask());
-        holder.dateAddedView.setText("Data dodania:"+ items.get(position).getDateAdded());
+        holder.dateAddedView.setText("Dodano:"+ items.get(position).getDateAdded());
         holder.dateEndView.setText("Termin: "+ items.get(position).getDateEnd());
-        holder.priorityView.setText("Piorytet: " + items.get(position).getPriority());
+        holder.priorityView.setText(items.get(position).getPriority());
         holder.statusView.setChecked(items.get(position).getStatus());
 
-        if(holder.statusView.isChecked()){
-            holder.statusView.setPaintFlags(holder.statusView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        }else{
-            holder.statusView.setPaintFlags(holder.statusView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-        }
+        check(holder);
 
 
         holder.statusView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                    if(holder.statusView.isChecked()){
-                        holder.statusView.setPaintFlags(holder.statusView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    }else{
-                        holder.statusView.setPaintFlags(holder.statusView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-                    }
-
-
-
+                    check(holder);
             }
         });
 
@@ -69,4 +66,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public int getItemCount() {
         return items.size();
     }
+
+
 }

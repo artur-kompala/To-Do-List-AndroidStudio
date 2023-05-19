@@ -2,33 +2,49 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:background="#2196F3">
+    android:layout_marginTop="20dp"
+    android:background="@drawable/layout_bg">
 
     <TextView
         android:id="@+id/dateAdded"
-        android:layout_width="match_parent"
+        android:layout_width="195dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/status"
-        android:text="TextView" />
+        android:fontFamily="@font/lato_bold"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/dateEnd"
-        android:layout_width="match_parent"
+        android:layout_width="216dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/dateAdded"
-        android:text="TextView" />
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="-17dp"
+        android:layout_toRightOf="@id/dateAdded"
+        android:fontFamily="@font/lato_bold"
+        android:text="TextView"
+        android:textColor="#050505" />
 
     <TextView
         android:id="@+id/priority"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/dateEnd"
-        android:text="TextView" />
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="TextView"
+        android:textAlignment="textEnd" />
 
     <CheckBox
         android:id="@+id/status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CheckBox" />
+        android:buttonTint="#C1A2F6"
+        android:fontFamily="@font/lato_bold"
+        android:text="CheckBox"
+        android:textSize="20sp" />
 </RelativeLayout>
