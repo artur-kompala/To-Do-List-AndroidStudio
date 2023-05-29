@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyViewHolder  extends RecyclerView.ViewHolder {
     TextView dateAddedView;
     TextView dateEndView;
-    TextView taskView;
     TextView priorityView;
     CheckBox statusView;
 

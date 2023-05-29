@@ -1,6 +1,11 @@
 package com.example.projektzaliczeniowy;
 
-public class Item {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Item implements Parcelable {
     String dateAdded;
     String dateEnd;
     String task;
@@ -14,6 +19,27 @@ public class Item {
         this.priority = priority;
         this.status = status;
     }
+
+    protected Item(Parcel in) {
+        dateAdded = in.readString();
+        dateEnd = in.readString();
+        task = in.readString();
+        priority = in.readString();
+        byte tmpStatus = in.readByte();
+        status = tmpStatus == 0 ? null : tmpStatus == 1;
+    }
+
+    public static final Creator<Item> CREATOR = new Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 
     public String getDateAdded() {
         return dateAdded;
@@ -54,4 +80,19 @@ public class Item {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(dateAdded);
+        parcel.writeString(dateEnd);
+        parcel.writeString(task);
+        parcel.writeString(priority);
+        parcel.writeBoolean(status);
+    }
+
 }

@@ -1,13 +1,10 @@
 package com.example.projektzaliczeniowy;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,8 +23,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public void check(MyViewHolder holder){
         if(holder.statusView.isChecked()){
             holder.statusView.setPaintFlags(holder.statusView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            items.get(holder.getAdapterPosition()).setStatus(true);
+
         }else{
             holder.statusView.setPaintFlags(holder.statusView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+            items.get(holder.getAdapterPosition()).setStatus(false);
         }
 
     }
@@ -40,6 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.statusView.setText(items.get(position).getTask());
@@ -51,12 +52,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         check(holder);
 
 
-        holder.statusView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    check(holder);
-            }
-        });
+        holder.statusView.setOnCheckedChangeListener((compoundButton, b) -> check(holder));
 
 
     }
