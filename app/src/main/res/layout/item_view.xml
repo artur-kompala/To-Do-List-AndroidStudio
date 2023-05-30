@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:layout_marginTop="20dp"
     android:background="@drawable/layout_bg">
 
@@ -9,10 +10,9 @@
         android:id="@+id/dateAdded"
         android:layout_width="195dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/status"
+        android:layout_gravity="bottom"
         android:fontFamily="@font/lato_bold"
         android:text="TextView"
-        android:textAlignment="center"
         android:textColor="#000000" />
 
     <TextView
@@ -20,11 +20,10 @@
         android:layout_width="216dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/dateAdded"
-        android:layout_marginLeft="-1dp"
-        android:layout_marginTop="-17dp"
-        android:layout_toRightOf="@id/dateAdded"
+        android:layout_gravity="bottom|right"
         android:fontFamily="@font/lato_bold"
         android:text="TextView"
+        android:textAlignment="viewEnd"
         android:textColor="#050505" />
 
     <TextView
@@ -32,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/dateEnd"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
@@ -47,4 +47,4 @@
         android:fontFamily="@font/lato_bold"
         android:text="CheckBox"
         android:textSize="20sp" />
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

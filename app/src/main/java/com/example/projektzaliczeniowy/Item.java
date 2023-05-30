@@ -12,12 +12,23 @@ public class Item implements Parcelable {
     String priority;
     Boolean status;
 
-    public Item(String dateAdded, String dateEnd, String task, String priority, Boolean status) {
+    String path;
+
+    public Item(String dateAdded, String dateEnd, String task, String priority, Boolean status,String path) {
         this.dateAdded = dateAdded;
         this.dateEnd = dateEnd;
         this.task = task;
         this.priority = priority;
         this.status = status;
+        this.path = path;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     protected Item(Parcel in) {

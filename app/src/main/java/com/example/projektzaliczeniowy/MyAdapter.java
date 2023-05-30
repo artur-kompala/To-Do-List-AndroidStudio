@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,11 +15,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     Context context;
     List<Item> items;
+    SelectListener listener;
 
 
-    public MyAdapter(Context context, List<Item> items) {
+    public MyAdapter(Context context, List<Item> items,SelectListener listener) {
         this.context = context;
         this.items = items;
+        this.listener = listener;
     }
     public void check(MyViewHolder holder){
         if(holder.statusView.isChecked()){
@@ -42,7 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.statusView.setText(items.get(position).getTask());
         holder.dateAddedView.setText("Dodano:"+ items.get(position).getDateAdded());
         holder.dateEndView.setText("Termin: "+ items.get(position).getDateEnd());
@@ -53,6 +56,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
 
         holder.statusView.setOnCheckedChangeListener((compoundButton, b) -> check(holder));
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemClicked(items.get(position));
+            }
+        });
 
 
     }

@@ -5,6 +5,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyViewHolder  extends RecyclerView.ViewHolder {
@@ -12,6 +13,7 @@ public class MyViewHolder  extends RecyclerView.ViewHolder {
     TextView dateEndView;
     TextView priorityView;
     CheckBox statusView;
+    public CardView cardView;
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -19,6 +21,6 @@ public class MyViewHolder  extends RecyclerView.ViewHolder {
         dateEndView = itemView.findViewById(R.id.dateEnd);
         priorityView = itemView.findViewById(R.id.priority);
         statusView = itemView.findViewById(R.id.status);
-
+        cardView = itemView.findViewById(R.id.main_container);
     }
 }
