@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:popupTheme="@style/Theme.AppCompat.Light">
+    <item android:title="Sort">
+        <menu>
+            <item
+                android:id="@+id/sort_task_za"
+                android:title="Task Z-A" />
+            <item
+                android:id="@+id/sort_task_az"
+                android:title="Task A-Z" />
+            <item
+                android:id="@+id/sort_status_done"
+                android:title="Status done" />
+            <item
+                android:id="@+id/sort_status_notdone"
+                android:title="Status not done" />
+            <item
+                android:id="@+id/sort_date_asc"
+                android:title="Date ASC" />
+            <item
+                android:id="@+id/sort_date_des"
+                android:title="Date DES" />
+        </menu>
+    </item>
+</menu>

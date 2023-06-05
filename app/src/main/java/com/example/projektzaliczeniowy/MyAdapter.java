@@ -2,12 +2,15 @@ package com.example.projektzaliczeniowy;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -24,13 +27,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         this.listener = listener;
     }
     public void check(MyViewHolder holder){
+
         if(holder.statusView.isChecked()){
             holder.statusView.setPaintFlags(holder.statusView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             items.get(holder.getAdapterPosition()).setStatus(true);
 
+
         }else{
             holder.statusView.setPaintFlags(holder.statusView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             items.get(holder.getAdapterPosition()).setStatus(false);
+
         }
 
     }
@@ -53,7 +59,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.statusView.setChecked(items.get(position).getStatus());
 
         check(holder);
-
 
         holder.statusView.setOnCheckedChangeListener((compoundButton, b) -> check(holder));
         holder.cardView.setOnClickListener(new View.OnClickListener() {

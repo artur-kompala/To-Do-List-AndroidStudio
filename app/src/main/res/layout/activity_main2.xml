@@ -103,7 +103,8 @@
                 android:layout_width="165dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="No file" />
+                android:text="File"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/clip"
@@ -113,6 +114,16 @@
                 android:layout_marginRight="20dp"
                 android:text="📎"
                 android:translationY="-48dp" />
+
+            <Button
+                android:id="@+id/trash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="110dp"
+                android:text="🗑️"
+                android:translationY="-96dp"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/save"

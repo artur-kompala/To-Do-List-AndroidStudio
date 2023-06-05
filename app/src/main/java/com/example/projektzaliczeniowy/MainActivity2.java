@@ -1,42 +1,34 @@
 package com.example.projektzaliczeniowy;
 
-import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
-import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+
 import static com.example.projektzaliczeniowy.MainActivity.editItem;
 import static com.example.projektzaliczeniowy.MainActivity.items;
 import static com.example.projektzaliczeniowy.MainActivity.mode;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
-import android.provider.ContactsContract;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import java.io.File;
+import com.google.gson.Gson;
+
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 public class MainActivity2 extends AppCompatActivity {
     MainActivity main;
@@ -45,6 +37,7 @@ public class MainActivity2 extends AppCompatActivity {
     Button delete;
     Button clip;
     Button file;
+    Button trash;
     EditText taskInput;
     RadioButton radioButton;
     CalendarView calendarview;
@@ -54,6 +47,7 @@ public class MainActivity2 extends AppCompatActivity {
     String priority;
     Uri uri;
     String path;
+    Boolean deletePath = false;
     private StorageVolume storageVolume;
     @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -77,12 +71,13 @@ public class MainActivity2 extends AppCompatActivity {
         save = findViewById(R.id.save);
         clip = findViewById(R.id.clip);
         file = findViewById(R.id.file);
+        trash = findViewById(R.id.trash);
         main = new MainActivity();
 
         if(mode == true){
             deleteItem();
             try {
-                editItem();
+                editItemView();
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -109,6 +104,7 @@ public class MainActivity2 extends AppCompatActivity {
             if(mode == false){
                 addNewItem();
             }
+            saveData();
             openActivity1();
 
         });
@@ -123,6 +119,18 @@ public class MainActivity2 extends AppCompatActivity {
             file.setText("Open File");
 
         });
+        trash.setOnClickListener(view -> {
+            addDate = formatter.format(new Date());
+            task = taskInput.getText().toString();
+            priority = checkButton();
+            if(mode == true){
+                path = null;
+                updateItem();
+            }
+            saveData();
+            openActivity1();
+        });
+
 
         calendarview.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             String  curDate = String.valueOf(dayOfMonth);
@@ -132,6 +140,15 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
     }
+    public void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(items);
+        editor.putString("task list",json);
+        editor.apply();
+    }
+
     public void openImage(View view){
         System.out.println(path);
         uri = Uri.parse(storageVolume.getDirectory() + "/"+ removeLeftSide(path));
@@ -159,7 +176,7 @@ public class MainActivity2 extends AppCompatActivity {
         int index = items.indexOf(editItem);
         items.set(index, new Item(addDate,endDate,task,priority,false,path));
     }
-    public void editItem() throws ParseException {
+    public void editItemView() throws ParseException {
         taskInput.setText(editItem.getTask());
         calendarview.setDate(formatter.parse(editItem.getDateEnd()).getTime(),true,true);
         if(editItem.getPriority().equals("Low")){
@@ -175,12 +192,16 @@ public class MainActivity2 extends AppCompatActivity {
             radioButton.setChecked(true);
         }
         path = editItem.getPath();
-        if(path != null){
-            file.setText("Open File");
+        System.out.println(path);
+        if(path == null){
+            file.setVisibility(View.GONE);
+        }else{
+            trash.setVisibility(View.VISIBLE);
+            file.setVisibility(View.VISIBLE);
+
         }
-
-
     }
+
     public void deleteItem(){
         delete =  findViewById(R.id.delete);
         delete.setVisibility(View.VISIBLE);
@@ -188,10 +209,12 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 items.remove(editItem);
+                saveData();
                 openActivity1();
             }
         });
     }
+
     public void openActivity1(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
